@@ -8,15 +8,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './services/data.service';
 import { HomeModule } from './home/home.module';
 import { HeaderComponent } from './header/header.component';
-import { ErroComponent } from './erro/erro.component';
-import { TestComponent } from './login_/test/test.component';
-import { LoginComponent } from './login_/login/login.component';
+import { LoginComponent } from './login/login/login.component';
+import { ErroComponent } from './login/erro/erro.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    TestComponent,
     LoginComponent,
     ErroComponent
   ],

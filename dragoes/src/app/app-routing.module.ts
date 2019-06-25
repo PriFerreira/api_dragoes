@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { ErroComponent } from './erro/erro.component';
-import { LoginComponent } from './login_/login/login.component';
-import { TestComponent } from './login_/test/test.component';
+import { LoginComponent } from './login/login/login.component';
+import { ErroComponent } from './login/erro/erro.component';
 
 const routes: Routes = [
   {
@@ -15,11 +14,6 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     data: { title: 'Home' }
-  },
-  {
-    path: 'test',
-    component: TestComponent,
-    data: { title: 'Test' }
   },
   {
     path: 'erro',
