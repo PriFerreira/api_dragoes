@@ -21,13 +21,4 @@ export class DataService {
  getDragoes(){
    return this._http.get<Dragao[]>(this.apiUrl);
  }
-
-  // fazerLogin( usuario : Usuario ){
-  //   if(usuario.nome == "usuario" && usuario.senha == "123"){   
-  //     this.router.navigate(['home']);
-  //   }else{
-  //    console.log('ops');
-  //   }
-  // }
-
 }

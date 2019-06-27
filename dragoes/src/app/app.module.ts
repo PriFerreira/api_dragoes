@@ -6,24 +6,32 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './services/data.service';
-import { HomeModule } from './home/home.module';
-import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login/login.component';
-import { ErroComponent } from './login/erro/erro.component';
+import { HomeComponent } from './inicio/home/home.component';
+import { ListaDragoesComponent } from './acoes/lista-dragoes/lista-dragoes.component';
+import { HeaderComponent } from './header/header.component';
+import { ExcluirComponent } from './acoes/excluir/excluir.component';
+import { EditarComponent } from './acoes/editar/editar.component';
+import { InserirComponent } from './acoes/inserir/inserir.component';
+import { OpcoesComponent } from './inicio/opcoes/opcoes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
+    ListaDragoesComponent,
     HeaderComponent,
     LoginComponent,
-    ErroComponent
+    ExcluirComponent,
+    EditarComponent,
+    InserirComponent,
+    OpcoesComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,   
-    HttpClientModule,
-    HomeModule
+    HttpClientModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

@@ -9,12 +9,15 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class ListaDragoesComponent implements OnInit {
   dragoes$: Dragao[];
-  
-  constructor( private dataService: DataService ){}
+  titulo:string;
+
+  constructor( private dataService: DataService ){
+    this.titulo = "Lista de Dragões";
+  }
 
   ngOnInit(){
     return this.dataService.getDragoes()
-    .subscribe(data => this.dragoes$ = data);
+    .subscribe(data => this.dragoes$ = data); 
   }
 
 }
