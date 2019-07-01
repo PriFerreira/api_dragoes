@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">  
+      <div class="col-12 col-sm-8 col-lg-6 mx-auto">
+        <div class="col-12 p-0">
+          <h4>Detalhes</h4>
+          <div class="d-inline-block">
+            <a [routerLink]="['editar']" class="ml-2">
+              <span class="mr-2 ml-2 fa fa-edit action-icon align-text-top"></span>
+            </a>
+            <a (click)="deletar(detalhesDoDragao.id)" class="delete-dragon">
+              <span class="ml-2 fa fa-trash action-icon align-baseline"></span>
+            </a>
+          </div>
+        </div>        
+        <div *ngIf="detalhesDoDragao">
+          <div class="item mx-0 row">
+            <label for="dragon-name" class="col-5 col-md-4 col-lg-6 detail-label pl-0">Nome: </label>
+            <div class="col-7 col-md-8 col-lg-6 info">
+              <span>{{ detalhesDoDragao.name }}</span>
+            </div>
+          </div>
+          <div class="item mx-0 row">
+            <label for="dragon-type" class="col-5 col-md-4 col-lg-6 detail-label pl-0">Tipo: </label>
+            <div class="col-7 col-md-8 col-lg-6 info">
+              <span>{{ detalhesDoDragao.type }}</span>
+            </div>
+          </div>
+          <div class="item mx-0 row">
+            <label for="creation-date" class="col-5 col-md-4 col-lg-6 detail-label pl-0">Data de Criação: </label>
+            <div class="col-7 col-md-8 col-lg-6 info">
+              <span>{{ detalhesDoDragao.createdAt | date }}</span>
+            </div>
+          </div>
+          <div class="item mx-0 row">
+            <label for="dragon-name" class="col-5 col-md-4 col-lg-6 detail-label pl-0">Histórias: </label>
+            <div class="col-7 col-md-8 col-lg-6 info">
+              <span>{{ detalhesDoDragao.histories }}</span>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+  </div>

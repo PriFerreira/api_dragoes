@@ -1,0 +1,23 @@
+<div id="lista" class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="titulo-pagina">
+        <h2>{{titulo}}</h2>
+      </div>
+      <div class="addDragao">
+        <a href="/inserir" type="button">add Dragao</a>
+      </div>
+      <div class="card" *ngFor='let dragao of dragoes$'>
+          <div class="card-body">
+            <h4>
+              <a [routerLink]="['/listar', dragao.id]"> {{ dragao.name }} </a>
+            </h4>
+            <div class="btn-group">
+              <a [routerLink]="['/listar', dragao.id, 'editar']" class="card-link">editar</a> | 
+              <a (click)="onDeleteDragon(dragao.id)" class="delete-dragon"> excluir </a>
+            </div>            
+        </div>
+    </div>
+    </div>
+  </div>
+</div>

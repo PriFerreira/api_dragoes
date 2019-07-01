@@ -1,39 +1,40 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DataService } from './services/data.service';
-import { LoginComponent } from './login/login/login.component';
-import { HomeComponent } from './inicio/home/home.component';
-import { ListaDragoesComponent } from './acoes/lista-dragoes/lista-dragoes.component';
-import { HeaderComponent } from './header/header.component';
-import { ExcluirComponent } from './acoes/excluir/excluir.component';
-import { EditarComponent } from './acoes/editar/editar.component';
-import { InserirComponent } from './acoes/inserir/inserir.component';
-import { OpcoesComponent } from './inicio/opcoes/opcoes.component';
+import { DataService } from './services/data/data.service';
+import { AuthService } from './services/auth/auth.service';
+import { ListaDragoesComponent } from './componentes/acoes/lista-dragoes/lista-dragoes.component';
+import { HeaderComponent } from './componentes/header/header.component';
+import { EditarComponent } from './componentes/acoes/editar/editar.component';
+import { InserirComponent } from './componentes/acoes/inserir/inserir.component';
+import { LoginComponent } from './componentes/login/login.component';
+import { DetalhesComponent } from './componentes/acoes/detalhes/detalhes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     ListaDragoesComponent,
     HeaderComponent,
-    LoginComponent,
-    ExcluirComponent,
     EditarComponent,
     InserirComponent,
-    OpcoesComponent
+    LoginComponent,
+    DetalhesComponent
   ],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
+    FormsModule,
+    ReactiveFormsModule,    
     AppRoutingModule,   
     HttpClientModule
   ],
-  providers: [DataService],
+  providers: [
+    DataService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
