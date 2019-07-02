@@ -21,10 +21,12 @@ const routes: Routes = [
    {
      path: 'inserir',
      component: InserirComponent,
+     canActivate: [AuthGuard],
      data: { title: 'Inserir' }
    },
   {
     path: 'listar',
+    canActivate: [AuthGuard],
     component: ListaDragoesComponent,
     data: { title: 'Listar' }
   },
