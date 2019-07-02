@@ -1,20 +1,24 @@
 <div id="lista" class="container">
   <div class="row">
-    <div class="col-12">
+    <div class="col-12 col-md-8 offset-md-2">
       <div class="titulo-pagina">
-        <h2>{{titulo}}</h2>
+        <h2>{{ titulo }}</h2>
       </div>
+    </div>
+    <div class="col-12 col-md-8 offset-md-2">
       <div class="addDragao">
-        <a href="/inserir" type="button">add Dragao</a>
+        <a class="btn btn-success" href="/inserir">ADD Dragao</a>
       </div>
+    </div>      
+    <div class="col-12 col-md-8 offset-md-2">
       <div class="card" *ngFor='let dragao of dragoes$'>
           <div class="card-body">
             <h4>
               <a [routerLink]="['/listar', dragao.id]"> {{ dragao.name }} </a>
             </h4>
             <div class="btn-group">
-              <a [routerLink]="['/listar', dragao.id, 'editar']" class="card-link">editar</a> | 
-              <a (click)="onDeleteDragon(dragao.id)" class="delete-dragon"> excluir </a>
+              <a [routerLink]="['/listar', dragao.id, 'editar']" class="btn btn-primary">Editar</a>
+              <a (click)="deletaODRagao(dragao.id)" class="btn btn-primary">Excluir</a>
             </div>            
         </div>
     </div>

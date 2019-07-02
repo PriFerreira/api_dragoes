@@ -13,13 +13,16 @@ export class ListaDragoesComponent implements OnInit {
 
   dragoes$: Dragao[] = [];
   titulo: string;
+  nomeDragao: any;
 
-  constructor( private dataService: DataService ){
+  constructor( private data: DataService ){
     this.titulo = "Lista de Dragões";
   }
 
+  /*aqui estamos chamando o método que acessa a 
+  url da api para trazer os nomes dos dragoes */
   pegaDragonildo() {
-    this.dataService.getDragoes().subscribe(
+    this.data.acessaListaDragoes().subscribe(
       dragoes => {
         dragoes.sort((prev, next) => (
           prev.name.toLocaleLowerCase() > next.name.toLocaleLowerCase()) ? 1 : -1);
@@ -29,13 +32,15 @@ export class ListaDragoesComponent implements OnInit {
     )
   }
 
-  onDeleteDragon(id: string) {
-    this.dataService.deletar(id).subscribe(
+  /*aqui estamos deletando um draga a partir da lista */
+  deletaODRagao(id: string) {
+    this.data.deletarODRagao(id).subscribe(
       response => {
-        alert(`O Dragonildo ${response.name} foi excluído.`);      
+        this.nomeDragao = response.name;
+        alert('O Dragonildo '+ this.nomeDragao +' foi excluído.');      
         this.pegaDragonildo();
       },
-      error => { alert(`Não é possível excluir o dragão que tu escolheu amigo(a)!`); }
+      error => { alert('Desculpa! Não deu pra excluir o dragão que tu escolheu amigo(a).'); }
     );
   }
 

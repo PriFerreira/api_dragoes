@@ -7,54 +7,33 @@ import { Dragao } from 'src/app/classes/dragao';
   providedIn: 'root'
 })
 export class DataService {
-  //apiUrl: string = 'http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/dragon/';
- 
- // constructor( private http: HttpClient ) { }
-  
+
  apiUrl: string = 'http://5c4b2a47aa8ee500142b4887.mockapi.io/api/v1/';
 
-  constructor(private http: HttpClient) { }
+  constructor( private http: HttpClient ) { }
 
-  getDragoes() {
+  /**Aqui estamos montando as urls para acessar a lista geral 
+   * ou conforme o id acessamos os detalhes de cada dragão e 
+   * assim podemos executar ações como adicionar novo dragão, excluir ou editar.
+   */
+  acessaListaDragoes() {
     return this.http.get<Dragao[]>(`${this.apiUrl}dragon`);
   }
 
-  // getDragoes() {
-  //   return this.http.get<Dragao[]>(this.apiUrl);   
-  // }
-
-  getDragonDetails(id: string) {
+  detalhesDoDragao(id: string) {
     return this.http.get<Dragao>(`${this.apiUrl}dragon/${id}`);
   }
 
-  editDragon(id: string, data: string) {
+  editarInfoDoDragao(id: string, data: string) {
     return this.http.put<Dragao>(`${this.apiUrl}dragon/${id}`, JSON.parse(data));
   }
 
-  createDragon(data: string) {
+  addDragao(data: string) {
     return this.http.post<Dragao>(`${this.apiUrl}dragon`, JSON.parse(data));
   }
 
-  deletar(id: string) {
+  deletarODRagao(id: string) {
     return this.http.delete<Dragao>(`${this.apiUrl}dragon/${id}`);
   }
-
-  // detalhes(id: string) {
-  //   console.log("detalhes data service "+id);
-  //   return this.http.get<Dragao>(this.apiUrl+id);    
-  // }
-
-  // deletar(id: string) {
-  //   return this.http.delete<Dragao>(`${this.apiUrl}${id}`);
-  // }
-
-  // criar(data: string) {
-  //   console.log(this.http.post<Dragao>(`${this.apiUrl}dragon`, JSON.parse(data)));
-  //   return this.http.post<Dragao>(`${this.apiUrl}dragon`, JSON.parse(data));
-  // }
-
-  // editar(id: string, data: string) {
-  //   return this.http.put<Dragao>(`${this.apiUrl}dragon/${id}`, JSON.parse(data));
-  // }
   
 }

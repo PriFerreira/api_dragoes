@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+
 import { DataService } from 'src/app/services/data/data.service';
 import { Dragao } from 'src/app/classes/dragao';
+
 
 @Component({
   selector: 'app-inserir',
@@ -11,21 +13,14 @@ import { Dragao } from 'src/app/classes/dragao';
 export class InserirComponent implements OnInit {
 
   dragonData: Dragao;
-  alerta = null;
-  isError = null;
-  isLoading = false;
+  dragao: string;
+  titulo: string = null;
 
-  constructor(private dataService: DataService) { }
-
-  ngOnInit() {
-    this.alerta = null;
+  constructor( private data: DataService ) { 
+    this.titulo = 'Adicionar um Dragonildo';
   }
 
-  // handle form information
-  registerHandler(form: NgForm) {
-    this.isLoading = true;
-
-    // format data to be sent to api
+  registrar(form: NgForm) {
     this.dragonData = {
       name: form.value.name,
       type: form.value.dragonType,
@@ -34,25 +29,19 @@ export class InserirComponent implements OnInit {
       histories: form.value.histories
     }
 
-    // send create dragon request
-    this.dataService.createDragon(JSON.stringify(this.dragonData)).subscribe(
-      (response) => {
+    /**Aqui estou fazendo a requisição para adicionar um novo dragão.*/
+    this.data.addDragao(JSON.stringify(this.dragonData))
+    .subscribe((response) => {
         if(response && response.id) {
-          this.isError = false;
-          alert(this.alerta = `Dragon ${ response.name } successfully registered!`);
-          form.reset();
+          this.dragao = response.name;
+          alert('\\o/ O Dragonildo '+ this.dragao +' foi adicionado \\o/');
         } else {
-          this.isError = true;
-          alert(this.alerta = 'Invalid response');
+          alert('Invalid response');
         }
-        this.isLoading = false;
-      },
-      error => {
-        alert(this.alerta = 'Unable to register dragon.');
-        this.isError = true;
-        this.isLoading = false;
-      }
+      }, error => { alert('Unable to register dragon.'); }
     );
   }
+
+  ngOnInit() { }
 
 }

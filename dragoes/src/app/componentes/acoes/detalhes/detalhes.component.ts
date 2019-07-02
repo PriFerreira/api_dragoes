@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Dragao } from 'src/app/classes/dragao';
 import { DataService } from 'src/app/services/data/data.service';
@@ -12,36 +12,49 @@ import { DataService } from 'src/app/services/data/data.service';
 })
 export class DetalhesComponent implements OnInit {
 
-  idDragao: string;
+  titulo: string = null
+  idEscolhido: string;
+  dragonildo:string;
   detalhesDoDragao: Dragao;
 
-  constructor( private dataService: DataService,
-               private route: ActivatedRoute) { }  
+  constructor( private data: DataService,
+               private route: ActivatedRoute,
+               private router: Router) {
+    this.titulo ="Detalhes do Dragonildo"
+  }    
 
-  /*faz o pedido de exclusão de um dragão para api, através do id*/
-  deletar(id: string) {
-    this.dataService.deletar(id).subscribe(response => {
-      alert(`O Dragão: ${response.name} foi deletado!`);
-    }, error => {
-        alert('Não foi possível excluir o dragão selecionado!');
-      }
-    );
-  }
-
-  /*acessa os detalhes sobre os dragões, através do id*/
+  /*acessa os detalhes sobre os dragões, através do id
+  e os mostra na tela ou informa que não foi possível.*/
   detalhes(id: string) {
-    this.dataService.getDragonDetails(id).subscribe(response => {
+    this.data.detalhesDoDragao(id).subscribe(response => {
       this.detalhesDoDragao = response;
       }, error => {
-        alert('Não foi possível buscar detalhes do dragão :(');
+        alert('Não deu buscar os detalhes do Dragonildo :(');
       }
     )
   }
 
-  ngOnInit() {
-    /*recupera o ID do dragão através da URL e carregar os dados*/
-    this.idDragao = this.route.snapshot.params['id'];
-    /*exibe os detalhes do dragão.*/
-    this.detalhes(this.idDragao);
+  /*faz o pedido de exclusão de um dragão para api através do id, 
+  responde através um alert conforme o status da resposta (se excluiu ou não o dragão)
+  e redireciona para a lista de drgões já atualizada. */
+  deletar(id: string) {    
+    this.data.deletarODRagao(id).subscribe(response => {
+      this.dragonildo = response.name;
+      alert('O Dragonildo chamado ' + this.dragonildo + 'foi E-X-C-L-U-Í-D-O!');
+      this.router.navigate(['/listar']);
+    }, error => {
+        alert('Não deu pra excluir o Dragonildo '+this.dragonildo);
+        this.router.navigate(['/listar']);
+      }
+    );    
   }
+
+  /*aqui estou carregando os dados da api através do id
+    posteriormente acesso o get de detalhes passando o id por parametro
+    para poder carregar as informações do drag~eo selecionado.*/
+  ngOnInit() {
+    this.idEscolhido = this.route.snapshot.params['id'];
+    this.detalhes(this.idEscolhido);
+  }
+  
 }

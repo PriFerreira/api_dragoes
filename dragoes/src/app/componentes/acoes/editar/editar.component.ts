@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 import { DataService } from 'src/app/services/data/data.service';
 import { Dragao } from 'src/app/classes/dragao';
-import { ActivatedRoute } from '@angular/router';
-import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -13,83 +13,61 @@ import { NgForm } from '@angular/forms';
 })
 export class EditarComponent implements OnInit {
 
-  titulo: string;
+  titulo: string = null
   dragaoSelecionado: Dragao;
-  idSelecionado: string;
-  form: NgForm;
+  idEscolhido: string;
+  infoDoForm: NgForm;
 
-  alert = null;
-
-  constructor( private dataService: DataService, 
-               private route: ActivatedRoute) {
-    this.titulo = "Editar Dragão";
+  constructor( private data: DataService, private route: ActivatedRoute) {
+    this.titulo ="Editar o Dragonildo ;)"
   }
 
-  ngOnInit() {
-    this.idSelecionado = this.route.snapshot.params['id'];
-    this.getDragonDetails(this.idSelecionado);
-  }
-
-  // request dragon detail from api
-  getDragonDetails(id: string) {
-    this.dataService.getDragonDetails(id).subscribe(
+  /*Aqui estou solicitando à api detalhes sobre o dragão referente ao id que 
+  recebi no ngOnInit. Para isso acesso o metodo de comunicação com a api através 
+  da variável data, referente ao service criado para me comunicar com a api.*/
+  acessaDetalhesDoDragao(id: string) {
+    this.data.detalhesDoDragao(id).subscribe(
       response => {
         this.dragaoSelecionado = response;
-      },
-      error => {
-        this.alert = 'Unable to fetch dragon details!';
+      }, error => {
+        alert('Não deu pra buscar os detalhes do Dragonildo :(');
       }
     )
   }
 
-  // handle form information
-  editDragonHandler(form: NgForm) {
-    this.alert = null;
-  
-    this.form = form;
-    const newData = form.value
-
-    // Check if data inserted is different than original data
-    if(this.isDataEqual(newData, this.dragaoSelecionado)) {
-      return;
+  /*aqui estou editando/atualizando as informações do 
+  formulário e enviando-as para atualizar na api.*/
+  editaHandler(form: NgForm) {  
+    this.infoDoForm = form;
+    const infoAtualizada = form.value
+    const dadosDoDragao = {
+      id: infoAtualizada.id,
+      name: infoAtualizada.name,
+      type: infoAtualizada.type,
+      createdAt: infoAtualizada.createdAt,      
+      histories: infoAtualizada.histories
     }
 
-    // format data to be sent to api
-    const dragonData = {
-      name: newData.name,
-      type: newData.type,
-      createdAt: newData.createdAt,
-      id: newData.id,
-      histories: newData.histories
-    }
-
-    this.sendEditRequest(form, dragonData);
+    this.enviaSolicitacaoEdicao(form, dadosDoDragao);
   }
-  
-  // send edit dragon request
-  sendEditRequest(form: NgForm, data: Dragao) {
-    this.dataService.editDragon(this.idSelecionado, JSON.stringify(data)).subscribe(
-      (response) => {
+
+  enviaSolicitacaoEdicao(form: NgForm, data: Dragao) {
+    this.data.editarInfoDoDragao(this.idEscolhido, JSON.stringify(data))
+      .subscribe((response) => {
         if(response && response.id) {
-          this.editRequestSuccessHandler(response);
+          this.editaRequisicao(response);
         } else {
-          this.alert = 'Invalid response';
+          alert('Resposta inválida queridinho(a)');
         }
-      },
-      error => {
-        this.alert = 'Unable to edit Dragon!';
+      }, error => {
+        alert('Não deu pra editar o Dragonildo :(');
       }
     );
   }
 
-  // return boolean to indicate if new data is equal to the old one
-  isDataEqual(newData: Dragao, oldData: Dragao) {
-    return newData.name === oldData.name && newData.type === oldData.type;
-  }
-
-  // update selected dragon data
-  editRequestSuccessHandler(response: Dragao) {
-    this.alert = 'Dragon successfully edited!';
+  /*atualizar dados selecionados do dragão*/
+  editaRequisicao(response: Dragao) {
+    alert('\\o/ O Dragonildo aí, agora tá editado \\o/');
     this.dragaoSelecionado = {
       name: response.name,
       type: response.type,
@@ -99,4 +77,11 @@ export class EditarComponent implements OnInit {
     }
   }
 
+  /*aqui estou carregando os dados da api através do id
+    posteriormente acesso o get de detalhes passando o id por parametro
+    para poder carregar as informações do drag~eo selecionado.*/
+  ngOnInit() {    
+    this.idEscolhido = this.route.snapshot.params['id'];
+    this.acessaDetalhesDoDragao(this.idEscolhido);
+  }
 }
