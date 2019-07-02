@@ -13,6 +13,7 @@ import { EditarComponent } from './componentes/acoes/editar/editar.component';
 import { InserirComponent } from './componentes/acoes/inserir/inserir.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { DetalhesComponent } from './componentes/acoes/detalhes/detalhes.component';
+import { FooterComponent } from './componentes/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DetalhesComponent } from './componentes/acoes/detalhes/detalhes.compone
     EditarComponent,
     InserirComponent,
     LoginComponent,
-    DetalhesComponent
+    DetalhesComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
