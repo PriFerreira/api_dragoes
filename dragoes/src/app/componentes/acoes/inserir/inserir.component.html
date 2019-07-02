@@ -14,7 +14,7 @@
           <label for="dragonType">Tipo do Dragão:</label>
           <input type="text" class="form-control" name="dragonType" ngModel required #dragonType="ngModel">              
         </div>
-        <a href="/listar" class="btn btn-primary botao">Voltar</a>
+        <a [routerLink]="['/listar']" class="btn btn-primary botao">Voltar</a>
         <button type="submit" class="btn btn-primary botao" [disabled]="!registerForm.valid">Adiciona o Dragonildo</button>
       </form>
     </div>  
